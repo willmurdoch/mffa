@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moving Forward for Ataxia — Recumbent trikes for people living with ataxia</title>
+  <meta name="description" content="Moving Forward for Ataxia is a mother-and-son nonprofit from Downingtown, PA that puts recumbent trikes into the hands of people living with ataxia — free of charge. $55,000+ raised, 17 trikes donated across 13 states and 3 countries. Help us fund the next one." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Moving Forward for Ataxia" />
+  <meta property="og:description" content="Ataxia takes balance. We give back motion. Help put a recumbent trike into the hands of someone living with ataxia." />
+  <meta property="og:image" content="assets/og.png" />
+  <meta name="theme-color" content="#070b18" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ======================= NAV ======================= -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top" aria-label="Moving Forward for Ataxia — home">
+      <svg class="nav__mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="markGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#58a6ff"/><stop offset="1" stop-color="#37d0a2"/>
+          </linearGradient>
+        </defs>
+        <circle cx="19" cy="26" r="13" fill="none" stroke="url(#markGrad)" stroke-width="3.5"/>
+        <circle cx="19" cy="26" r="3" fill="url(#markGrad)"/>
+        <path d="M19 26 L30 12" stroke="url(#markGrad)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M28 12 h12 m-5 -5 l5 5 l-5 5" fill="none" stroke="#ffc24b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav__name"><strong>Moving Forward</strong><em>for Ataxia</em></span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Main">
+      <a href="#story">Our Story</a>
+      <a href="#ataxia">What Is Ataxia</a>
+      <a href="#trikes">Why Trikes</a>
+      <a href="#map">Impact Map</a>
+      <a href="#get-a-trike">Get a Trike</a>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--donate nav__donate" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">Donate<span class="btn--donate__heart" aria-hidden="true">♥</span></a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+  <!-- ======================= HERO ======================= -->
+  <section class="hero" id="top">
+    <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+    <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__eyebrow reveal">A mother-and-son nonprofit &middot; Downingtown, Pennsylvania</p>
+      <h1 class="hero__title">
+        <span class="hero__line"><span>Ataxia takes</span></span>
+        <span class="hero__line"><span>away balance.</span></span>
+        <span class="hero__line hero__line--accent"><span>We give back motion.</span></span>
+      </h1>
+      <p class="hero__sub reveal">Moving Forward for Ataxia puts <strong>recumbent trikes</strong> — stable, adaptive, joy-restoring machines — into the hands of people living with ataxia, <strong>free of charge</strong>.</p>
+      <div class="hero__cta reveal">
+        <a class="btn btn--donate btn--lg" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">Donate now — fund the next trike</a>
+        <a class="btn btn--ghost btn--lg" href="#story">See how it started</a>
+      </div>
+      <dl class="hero__stats reveal" id="heroStats">
+        <div class="stat"><dt>Raised so far</dt><dd>$<span class="stat__num" data-count="55000">0</span>+</dd></div>
+        <div class="stat"><dt>Trikes donated</dt><dd><span class="stat__num" data-count="17">0</span></dd></div>
+        <div class="stat"><dt>States reached</dt><dd><span class="stat__num" data-count="13">0</span></dd></div>
+        <div class="stat"><dt>Countries</dt><dd><span class="stat__num" data-count="3">0</span></dd></div>
+      </dl>
+    </div>
+    <a class="hero__scrollcue" href="#story" aria-label="Scroll to our story"><span></span></a>
+  </section>
+
+  <!-- ======================= LOCATION TICKER ======================= -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track" id="tickerTrack">
+      <!-- duplicated by JS for seamless loop -->
+      <span>Dimondale&nbsp;MI</span><span>Jacksonville&nbsp;FL</span><span>Malden&nbsp;MA</span><span>Dayton&nbsp;OH</span><span>Inverness&nbsp;FL</span><span>Windsor&nbsp;CO</span><span>Austin&nbsp;TX</span><span>Rio&nbsp;Rancho&nbsp;NM</span><span>Springfield&nbsp;MO</span><span>Thorndale&nbsp;PA</span><span>St.&nbsp;Johns&nbsp;MI</span><span>Elko&nbsp;NV</span><span>San&nbsp;Jose&nbsp;CA</span><span>Happy&nbsp;Valley&nbsp;OR</span><span>Maquoketa&nbsp;IA</span><span>Cyprus</span><span>Egypt</span>
+    </div>
+  </div>
+
+  <!-- ======================= STORY ======================= -->
+  <section class="section story" id="story">
+    <div class="section__head">
+      <p class="section__eyebrow reveal">Our story</p>
+      <h2 class="section__title reveal">A few laps around the park<br /><span class="grad">became a movement.</span></h2>
+    </div>
+    <div class="story__timeline" id="timeline">
+      <div class="story__spine" aria-hidden="true"><div class="story__spine-fill" id="spineFill"></div></div>
+
+      <article class="story__item reveal">
+        <div class="story__year">2020</div>
+        <div class="story__card">
+          <h3>A diagnosis at 22</h3>
+          <p>Jack, a 22-year-old from Downingtown, PA, is diagnosed with <strong>spinocerebellar ataxia</strong> — a rare, progressive neurological disease that attacks coordination and balance. Within a year, his symptoms progress so quickly that he is using a wheelchair full-time.</p>
+        </div>
+      </article>
+
+      <article class="story__item reveal">
+        <div class="story__year">2021</div>
+        <div class="story__card">
+          <h3>Three wheels, one spark</h3>
+          <p>A neighbor living with the same rare condition introduces Jack to the <strong>recumbent trike</strong>. That spring, Jack manages a few careful laps around the local park — and feels something he hadn't felt since his diagnosis: <em>mobility on his own terms</em>.</p>
+        </div>
+      </article>
+
+      <article class="story__item reveal">
+        <div class="story__year">2023</div>
+        <div class="story__card">
+          <h3>From laps to century rides</h3>
+          <p>The laps become miles. The miles become long-haul rides. Jack builds up to riding as far as <strong>100 miles at a time</strong> — proof that with the right machine, ataxia doesn't get the last word on movement.</p>
+        </div>
+      </article>
+
+      <article class="story__item reveal">
+        <div class="story__year">2024</div>
+        <div class="story__card">
+          <h3>Moving Forward for Ataxia is born</h3>
+          <p>Jack and his mom <strong>Monica</strong> turn their rides into a mission: every mile ridden raises money to buy trikes for other people with ataxia. Their most ambitious campaign takes them <strong>1,500 miles from Maine to Ohio</strong> — 41 days in the saddle, over 55,000 feet of climbing.</p>
+        </div>
+      </article>
+
+      <article class="story__item reveal">
+        <div class="story__year">Today</div>
+        <div class="story__card story__card--glow">
+          <h3>17 trikes and counting</h3>
+          <p>In under two years, this tiny grassroots charity has raised more than <strong>$55,000</strong> and delivered <strong>17 trikes</strong> to riders across 13 states — and as far away as Cyprus and Egypt. The mission keeps moving forward. <a href="#donate">The next trike could be yours to give.</a></p>
+        </div>
+      </article>
+    </div>
+    <div class="story__ridebar reveal" aria-hidden="false">
+      <div class="ridebar__stat"><strong>1,500</strong><span>miles, Maine → Ohio</span></div>
+      <div class="ridebar__stat"><strong>41</strong><span>days on the road</span></div>
+      <div class="ridebar__stat"><strong>55,000+</strong><span>feet of climbing</span></div>
+      <div class="ridebar__stat"><strong>100</strong><span>miles in a single ride</span></div>
+    </div>
+  </section>
+
+  <!-- ======================= ATAXIA ======================= -->
+  <section class="section ataxia" id="ataxia">
+    <div class="section__head">
+      <p class="section__eyebrow reveal">Understanding the disease</p>
+      <h2 class="section__title reveal">What is <span class="grad">ataxia?</span></h2>
+      <p class="section__lede reveal">Ataxia means a loss of coordination. In degenerative ataxias, the <strong>cerebellum</strong> — the brain's movement control center — slowly atrophies. Walking, balance, speech, swallowing, even eye movement become harder and harder. It affects roughly <strong>150,000 people in the United States</strong>, and there is no cure.</p>
+    </div>
+
+    <figure class="ataxia__viz reveal" aria-label="Illustration: an intended straight path versus the wobbling path ataxia causes">
+      <svg viewBox="0 0 900 220" preserveAspectRatio="xMidYMid meet">
+        <path id="pathIntent" d="M40 80 C 250 78, 650 82, 860 80" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
+        <path id="pathAtaxia" d="M40 150 C 90 120, 120 190, 170 150 S 250 100, 300 165 S 390 195, 440 135 S 520 105, 570 175 S 660 190, 710 130 S 810 115, 860 150" fill="none" stroke="#ff7a59" stroke-width="3" stroke-linecap="round"/>
+        <text x="40" y="55" class="viz__label viz__label--blue">what the brain intends</text>
+        <text x="40" y="210" class="viz__label viz__label--coral">what ataxia does to it</text>
+      </svg>
+      <figcaption class="visually-hidden">A straight line representing intended movement, and a wobbling line representing movement with ataxia.</figcaption>
+    </figure>
+
+    <div class="cards">
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">⚖️</div>
+        <h3>Balance &amp; gait</h3>
+        <p>Standing, walking, and cycling on two wheels become unsafe. Falls are constant. Many people move to wheelchairs within a few years.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">💬</div>
+        <h3>Speech &amp; swallowing</h3>
+        <p>The same loss of muscle coordination affects speaking clearly and swallowing safely — isolating people from everyday life.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">📉</div>
+        <h3>Progressive, incurable</h3>
+        <p>Most hereditary ataxias steadily worsen over time. There is currently no cure and very little that medicine can offer.</p>
+      </div>
+      <div class="card card--accent reveal">
+        <div class="card__icon" aria-hidden="true">🚴</div>
+        <h3>Movement is the medicine</h3>
+        <p>The one thing shown to help: <strong>staying active</strong>. Exercise is the primary treatment goal — it helps preserve function, strength, and quality of life for as long as possible.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= WHY TRIKES ======================= -->
+  <section class="section trikes" id="trikes">
+    <div class="section__head">
+      <p class="section__eyebrow reveal">Why recumbent trikes</p>
+      <h2 class="section__title reveal">Three wheels<br /><span class="grad">change everything.</span></h2>
+      <p class="section__lede reveal">You can't fall off a machine that can't tip over. A recumbent trike replaces the balance ataxia has taken with engineering — and gives back real, independent, heart-pounding exercise.</p>
+    </div>
+
+    <div class="trikes__stage" id="trikeStage" aria-hidden="true">
+      <div class="trikes__road"></div>
+      <svg class="trikes__svg" id="trikeSvg" viewBox="0 0 360 200">
+        <defs>
+          <linearGradient id="frameGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#58a6ff"/><stop offset="1" stop-color="#37d0a2"/>
+          </linearGradient>
+        </defs>
+        <!-- rear wheel -->
+        <g class="wheel" id="wheelRear" transform="translate(70,140)">
+          <circle r="48" fill="none" stroke="#e8ecf8" stroke-width="6"/>
+          <circle r="8" fill="#e8ecf8"/>
+          <g stroke="#9aa5c1" stroke-width="3">
+            <line x1="-44" y1="0" x2="44" y2="0"/><line x1="0" y1="-44" x2="0" y2="44"/>
+            <line x1="-31" y1="-31" x2="31" y2="31"/><line x1="-31" y1="31" x2="31" y2="-31"/>
+          </g>
+        </g>
+        <!-- front wheel -->
+        <g class="wheel" id="wheelFront" transform="translate(290,152)">
+          <circle r="36" fill="none" stroke="#e8ecf8" stroke-width="6"/>
+          <circle r="7" fill="#e8ecf8"/>
+          <g stroke="#9aa5c1" stroke-width="3">
+            <line x1="-32" y1="0" x2="32" y2="0"/><line x1="0" y1="-32" x2="0" y2="32"/>
+            <line x1="-23" y1="-23" x2="23" y2="23"/><line x1="-23" y1="23" x2="23" y2="-23"/>
+          </g>
+        </g>
+        <!-- frame -->
+        <g stroke="url(#frameGrad)" stroke-width="8" stroke-linecap="round" fill="none">
+          <path d="M70 140 L150 128 L240 138 L290 152"/>
+          <path d="M150 128 L128 86 L96 96"/> <!-- seat -->
+          <path d="M240 138 L300 108"/> <!-- boom -->
+        </g>
+        <!-- seat mesh -->
+        <path d="M128 86 L96 96 L104 122 L140 116 Z" fill="#37d0a2" opacity="0.25" stroke="#37d0a2" stroke-width="3"/>
+        <!-- crank + pedals -->
+        <g id="crank" transform="translate(300,108)">
+          <circle r="12" fill="none" stroke="#ffc24b" stroke-width="5"/>
+          <g id="crankArm">
+            <line x1="0" y1="-20" x2="0" y2="20" stroke="#ffc24b" stroke-width="5" stroke-linecap="round"/>
+            <rect x="-9" y="-26" width="18" height="7" rx="3" fill="#ffc24b"/>
+            <rect x="-9" y="19" width="18" height="7" rx="3" fill="#ffc24b"/>
+          </g>
+        </g>
+        <!-- flag -->
+        <g id="flag">
+          <line x1="86" y1="98" x2="60" y2="26" stroke="#9aa5c1" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M60 26 l34 8 l-34 10 z" fill="#ff7a59"/>
+        </g>
+        <!-- motion streaks -->
+        <g class="streaks" stroke="#58a6ff" stroke-width="4" stroke-linecap="round" opacity="0.5">
+          <line x1="6" y1="96" x2="42" y2="96"/>
+          <line x1="-6" y1="120" x2="34" y2="120"/>
+          <line x1="14" y1="72" x2="44" y2="72"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="cards cards--trikes">
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">🛡️</div>
+        <h3>Stability by design</h3>
+        <p>Three wheels and a low center of gravity mean <strong>no balancing required</strong> — the machine holds you. Falling simply isn't part of the equation.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">🪑</div>
+        <h3>A seat that supports</h3>
+        <p>The reclined seat cradles the whole body, and feet secure to the pedals — so riders with limited trunk control can push hard and ride far in comfort.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">❤️</div>
+        <h3>The best available therapy</h3>
+        <p>Serious cardio, leg strength, and coordination work — the exact exercise neurologists ask ataxia patients to get, in a form they can actually do.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card__icon" aria-hidden="true">🕊️</div>
+        <h3>Freedom, returned</h3>
+        <p>For someone who has given up their car keys and their two-wheeler, a trike is independence: open trails, wind, distance — <strong>joy on their own terms</strong>.</p>
+      </div>
+    </div>
+
+    <aside class="pricecall reveal">
+      <div class="pricecall__text">
+        <h3>The catch: a fitted adaptive trike costs <span class="grad">$3,000–$6,000+</span></h3>
+        <p>Insurance almost never covers it. For someone on a fixed disability income, that price tag means "never." <strong>That's exactly the gap this charity exists to close.</strong></p>
+      </div>
+      <a class="btn btn--donate" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">Close the gap — donate</a>
+    </aside>
+  </section>
+
+  <!-- ======================= IMPACT MAP / GLOBE ======================= -->
+  <section class="section mapsec" id="map">
+    <div class="section__head">
+      <p class="section__eyebrow reveal">Global generosity</p>
+      <h2 class="section__title reveal">Kindness from every<br /><span class="grad">corner of the map.</span></h2>
+      <p class="section__lede reveal">What started on one driveway in Downingtown, PA now spans the country — and the ocean. Support has poured in from <strong>13 states and 3 countries</strong>. Drag the globe. Every light is a community that moved this mission forward.</p>
+    </div>
+
+    <div class="globe" id="globeWrap">
+      <canvas id="globeCanvas" aria-label="Interactive globe showing locations that have supported Moving Forward for Ataxia"></canvas>
+      <div class="globe__tooltip" id="globeTooltip" role="status" aria-live="polite"></div>
+      <div class="globe__hint" aria-hidden="true">drag to spin &middot; hover a light</div>
+    </div>
+
+    <ul class="chips" id="locationChips" aria-label="Supporter locations">
+      <li class="chip chip--home" data-loc="0">Downingtown, PA <em>home base</em></li>
+      <li class="chip" data-loc="1">Dimondale, MI</li>
+      <li class="chip" data-loc="2">Jacksonville, FL</li>
+      <li class="chip" data-loc="3">Malden, MA</li>
+      <li class="chip" data-loc="4">Dayton, OH</li>
+      <li class="chip" data-loc="5">Inverness, FL</li>
+      <li class="chip" data-loc="6">Windsor, CO</li>
+      <li class="chip" data-loc="7">Austin, TX</li>
+      <li class="chip" data-loc="8">Rio Rancho, NM</li>
+      <li class="chip" data-loc="9">Springfield, MO</li>
+      <li class="chip" data-loc="10">Thorndale, PA</li>
+      <li class="chip" data-loc="11">St. Johns, MI</li>
+      <li class="chip" data-loc="12">Elko, NV</li>
+      <li class="chip" data-loc="13">San Jose, CA</li>
+      <li class="chip" data-loc="14">Happy Valley, OR</li>
+      <li class="chip" data-loc="15">Maquoketa, IA</li>
+      <li class="chip chip--intl" data-loc="16">Cyprus 🇨🇾</li>
+      <li class="chip chip--intl" data-loc="17">Egypt 🇪🇬</li>
+    </ul>
+  </section>
+
+  <!-- ======================= HOW IT WORKS / GET A TRIKE ======================= -->
+  <section class="section how" id="get-a-trike">
+    <div class="section__head">
+      <p class="section__eyebrow reveal">How it works</p>
+      <h2 class="section__title reveal">From your donation<br /><span class="grad">to the open road.</span></h2>
+    </div>
+    <ol class="steps">
+      <li class="step reveal">
+        <span class="step__num">1</span>
+        <h3>You give</h3>
+        <p>Every dollar goes into the Moving Forward Fund, hosted by <strong>Help Hope Live</strong>, an established 501(c)(3) nonprofit — so your gift is tax-deductible.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step__num">2</span>
+        <h3>We find a rider</h3>
+        <p>We connect with people living with ataxia across the country (and beyond), and work with them to choose and fit the right adaptive trike for their body and their goals.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step__num">3</span>
+        <h3>A life starts moving</h3>
+        <p>The trike arrives free of charge, and someone who thought their riding days were over is back outside — exercising, exploring, and moving forward.</p>
+      </li>
+    </ol>
+    <div class="how__request reveal">
+      <h3>Living with ataxia, or know someone who is?</h3>
+      <p>We'd love to hear from you. Reach out and tell us your story — the next trike we fund could have your name on it.</p>
+      <a class="btn btn--ghost" href="https://www.facebook.com/movingforwardforataxia/" target="_blank" rel="noopener">Message us on Facebook →</a>
+    </div>
+  </section>
+
+  <!-- ======================= DONATE ======================= -->
+  <section class="section donate" id="donate">
+    <div class="donate__panel reveal">
+      <div class="donate__glow" aria-hidden="true"></div>
+      <p class="section__eyebrow">Make it happen</p>
+      <h2 class="section__title">Fuel the <span class="grad grad--warm">next mile.</span></h2>
+      <p class="donate__lede">Seventeen riders are back on the road because people like you gave. Rider #18 is waiting. 100% of what we raise goes toward trikes and gear for people living with ataxia.</p>
+
+      <div class="donate__tiers" role="list">
+        <a role="listitem" class="tier" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">
+          <strong>$25</strong><span>keeps a rider rolling — helps cover flags, lights, and safety gear</span>
+        </a>
+        <a role="listitem" class="tier" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">
+          <strong>$100</strong><span>funds a mile of our next fundraising ride — and then some</span>
+        </a>
+        <a role="listitem" class="tier" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">
+          <strong>$500</strong><span>helps custom-fit a trike to a rider's body and needs</span>
+        </a>
+        <a role="listitem" class="tier tier--hero" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">
+          <strong>$3,500</strong><span>an entire trike — a whole life set back in motion</span><em>changes everything</em>
+        </a>
+      </div>
+
+      <a class="btn btn--donate btn--xl" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">Donate on Help Hope Live →</a>
+      <p class="donate__fine">Donations are processed securely by Help Hope Live, a 501(c)(3) nonprofit (tax-deductible as allowed by law). Prefer another way to give, or want to sponsor a ride? <a href="https://www.facebook.com/movingforwardforataxia/" target="_blank" rel="noopener">Message us on Facebook</a>.</p>
+    </div>
+
+    <div class="donate__other">
+      <div class="ways reveal">
+        <div class="way">
+          <h3>📣 Share the mission</h3>
+          <p>Awareness is fuel. Share this page with one person and you've already helped.</p>
+          <button class="btn btn--ghost btn--sm" id="shareBtn" type="button">Copy link to share</button>
+        </div>
+        <div class="way">
+          <h3>👥 Follow the journey</h3>
+          <p>Ride updates, new trike deliveries, and stories from the road.</p>
+          <a class="btn btn--ghost btn--sm" href="https://www.facebook.com/movingforwardforataxia/" target="_blank" rel="noopener">Follow on Facebook</a>
+        </div>
+        <div class="way">
+          <h3>🏢 Give through work</h3>
+          <p>Many employers match charitable gifts — your $100 can become $200 with one email to HR.</p>
+          <a class="btn btn--ghost btn--sm" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">Start a matched gift</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <svg class="nav__mark" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="19" cy="26" r="13" fill="none" stroke="#37d0a2" stroke-width="3.5"/>
+          <circle cx="19" cy="26" r="3" fill="#37d0a2"/>
+          <path d="M19 26 L30 12" stroke="#37d0a2" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M28 12 h12 m-5 -5 l5 5 l-5 5" fill="none" stroke="#ffc24b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p><strong>Moving Forward for Ataxia</strong><br />Started by a mother and son on three wheels.<br />Downingtown, Pennsylvania</p>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#story">Our Story</a>
+        <a href="#ataxia">What Is Ataxia</a>
+        <a href="#trikes">Why Trikes</a>
+        <a href="#map">Impact Map</a>
+        <a href="#donate">Donate</a>
+        <a href="https://www.facebook.com/movingforwardforataxia/" target="_blank" rel="noopener">Facebook</a>
+      </nav>
+      <div class="footer__cta">
+        <a class="btn btn--donate" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener">Donate now</a>
+      </div>
+    </div>
+    <p class="footer__legal">Fundraising for Moving Forward for Ataxia is conducted through the Moving Forward Fund at Help Hope Live, a 501(c)(3) nonprofit. &copy; <span id="year"></span> Moving Forward for Ataxia.</p>
+  </footer>
+
+  <!-- Floating donate pill (appears after hero) -->
+  <a class="donate-pill" id="donatePill" href="https://helphopelive.org/campaign/23067/" target="_blank" rel="noopener" aria-label="Donate to Moving Forward for Ataxia">
+    <span class="donate-pill__pulse" aria-hidden="true"></span>♥ Donate
+  </a>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/ScrollToPlugin.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/globe.js"></script>
+</body>
+</html>
