@@ -27,8 +27,7 @@ const LOCATIONS = [
   { name: 'San Jose, CA', lat: 37.339, lon: -121.895 },
   { name: 'Happy Valley, OR', lat: 45.447, lon: -122.53 },
   { name: 'Maquoketa, IA', lat: 42.069, lon: -90.666 },
-  { name: 'Cyprus', sub: 'Across the Atlantic', lat: 35.126, lon: 33.43 },
-  { name: 'Egypt', sub: 'Across the Atlantic', lat: 30.044, lon: 31.236 },
+  { name: 'Cyprus', sub: 'Across the ocean — 5,600 miles from home', lat: 35.126, lon: 33.43 },
 ];
 
 const R = 1;
@@ -310,8 +309,9 @@ if (renderer) {
 
   /* --- resize --- */
   function resize() {
-    const size = Math.min(wrap.clientWidth, Math.round(innerHeight * 0.78));
-    renderer.setSize(size, size, false);
+    /* measure the wrapper, not the canvas — the canvas's own style width is set below */
+    const size = Math.max(240, Math.min(wrap.clientWidth, Math.round(innerHeight * 0.78)));
+    renderer.setSize(size, size); /* updateStyle:true keeps CSS box square = no distortion */
     camera.aspect = 1;
     camera.updateProjectionMatrix();
   }
