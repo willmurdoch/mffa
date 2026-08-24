@@ -32,7 +32,8 @@ To point `movingforwardforataxia.org` at it, add a `CNAME` file containing the d
 
 ## Things to verify with Monica
 
-- **Donate links** point to the Moving Forward Fund at Help Hope Live: `https://helphopelive.org/campaign/23067/` (found via their press coverage — confirm it's current).
+- **Donate links** all point to the PayPal checkout Monica provided: `https://www.paypal.com/ncp/payment/7JQHV38D94YJ6`. To change it, search that URL in `index.html` (11 places).
+- **Tax-deductible language was removed.** The earlier draft claimed 501(c)(3) status via Help Hope Live as fiscal sponsor. Since donations now go through PayPal directly, that claim no longer applies as written. If Moving Forward for Ataxia is a registered 501(c)(3) (or still runs gifts through a fiscal sponsor), add the entity name and EIN back to the donate fine print and footer — donors look for it, and it measurably lifts giving.
 - **Contact**: the site currently routes contact through the [Facebook page](https://www.facebook.com/movingforwardforataxia/). If there's an official email, add it in the footer and the "Get a Trike" section.
 - **Stats** ($55,000+ raised, 17 trikes, 13 states, 2 countries, 1,500-mile Maine→Ohio ride, 41 days, 55,000 ft of climbing, 100-mile single rides) came from press coverage (Rails-to-Trails Conservancy, Brandywine Conservancy, Help Hope Live). Update the numbers in `index.html` as they grow — search for `data-count` for the animated counters.
 - **Map locations** are in `js/globe.js` (`LOCATIONS`) and mirrored as chips in `index.html`. Add new ones in both places.

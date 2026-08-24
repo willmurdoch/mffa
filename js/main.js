@@ -200,81 +200,189 @@ if (gsapOK) {
   });
 }
 
-/* ---------------- Hero particle field ---------------- */
-(function heroParticles() {
+
+/* ---------------- Hero: drifting topographic contours ----------------
+   A slowly morphing elevation map — the trail/terrain motif behind the
+   whole mission. Contours are generated with value noise + marching
+   squares, so the lines are nested and map-like rather than random.  */
+(function heroTerrain() {
   const canvas = document.getElementById('heroCanvas');
-  if (!canvas || prefersReducedMotion) return;
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let w, h, dpr, particles, raf;
-  const COLORS = ['rgba(88,166,255,', 'rgba(55,208,162,', 'rgba(255,194,75,'];
+
+  /* --- deterministic value noise (no dependencies) --- */
+  const PERM = new Uint8Array(512);
+  (function seed() {
+    let s = 20240607;
+    const p = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) p[i] = i;
+    for (let i = 255; i > 0; i--) {
+      s = (s * 1664525 + 1013904223) >>> 0;
+      const j = s % (i + 1);
+      const t = p[i]; p[i] = p[j]; p[j] = t;
+    }
+    for (let i = 0; i < 512; i++) PERM[i] = p[i & 255];
+  })();
+
+  const smooth = (t) => t * t * (3 - 2 * t);
+  const corner = (x, y) => PERM[(PERM[x & 255] + (y & 255)) & 255] / 127.5 - 1;
+
+  function noise2(x, y) {
+    const xi = Math.floor(x), yi = Math.floor(y);
+    const u = smooth(x - xi), v = smooth(y - yi);
+    const a = corner(xi, yi), b = corner(xi + 1, yi);
+    const c = corner(xi, yi + 1), d = corner(xi + 1, yi + 1);
+    const top = a + (b - a) * u;
+    const bot = c + (d - c) * u;
+    return top + (bot - top) * v;
+  }
+
+  /* three octaves, each drifting differently so the terrain morphs
+     instead of merely sliding past */
+  function elevation(x, y, t) {
+    return (
+      noise2(x, y + t * 0.55) * 0.60 +
+      noise2(x * 2.1 + t * 0.30, y * 2.1) * 0.28 +
+      noise2(x * 4.3, y * 4.3 - t * 0.22) * 0.12
+    );
+  }
+
+  /* marching-squares edge pairs, keyed by corner mask
+     (TL=8, TR=4, BR=2, BL=1); edges: 0=top 1=right 2=bottom 3=left */
+  const CASES = [
+    [], [[3, 2]], [[2, 1]], [[3, 1]],
+    [[0, 1]], [[0, 3], [2, 1]], [[0, 2]], [[3, 0]],
+    [[3, 0]], [[0, 2]], [[0, 1], [3, 2]], [[0, 1]],
+    [[3, 1]], [[2, 1]], [[3, 2]], [],
+  ];
+
+  const CELL = 26;          /* px per grid cell */
+  const LEVELS = 13;        /* number of contour lines */
+  const SCALE = 1 / 300;    /* noise units per px */
+
+  let w = 0, h = 0, cols = 0, rows = 0, field = null, raf = null;
 
   function resize() {
-    dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = Math.min(devicePixelRatio || 1, 2);
     w = canvas.clientWidth;
     h = canvas.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.ceil(w / CELL) + 1;
+    rows = Math.ceil(h / CELL) + 1;
+    field = new Float32Array((cols + 1) * (rows + 1));
   }
 
-  function spawn(x) {
-    const speed = 0.35 + Math.random() * 1.15;
-    return {
-      x: x !== undefined ? x : Math.random() * w,
-      y: Math.random() * h,
-      vx: speed,
-      len: 26 + Math.random() * 70,
-      amp: 6 + Math.random() * 22,
-      phase: Math.random() * Math.PI * 2,
-      freq: 0.002 + Math.random() * 0.004,
-      color: COLORS[(Math.random() * COLORS.length) | 0],
-      alpha: 0.08 + Math.random() * 0.22,
-      width: 1 + Math.random() * 1.8,
-    };
-  }
-
-  function init() {
-    resize();
-    const n = Math.min(90, Math.max(40, Math.floor(w / 16)));
-    particles = Array.from({ length: n }, () => spawn());
-  }
-
-  let t = 0;
-  function frame() {
-    t += 1;
-    ctx.clearRect(0, 0, w, h);
-    for (const p of particles) {
-      p.x += p.vx;
-      const yOff = Math.sin(t * p.freq * 60 + p.phase + p.x * 0.004) * p.amp;
-      if (p.x - p.len > w) {
-        Object.assign(p, spawn(-p.len));
+  function buildField(t) {
+    for (let j = 0; j <= rows; j++) {
+      const y = j * CELL * SCALE;
+      for (let i = 0; i <= cols; i++) {
+        field[j * (cols + 1) + i] = elevation(i * CELL * SCALE, y, t);
       }
-      const grad = ctx.createLinearGradient(p.x - p.len, 0, p.x, 0);
-      grad.addColorStop(0, p.color + '0)');
-      grad.addColorStop(1, p.color + p.alpha + ')');
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = p.width;
-      ctx.lineCap = 'round';
+    }
+  }
+
+  function draw(t) {
+    buildField(t);
+    ctx.clearRect(0, 0, w, h);
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    for (let L = 0; L < LEVELS; L++) {
+      const threshold = -0.42 + (L / (LEVELS - 1)) * 0.84;
+      const index = L % 4 === 0; /* every 4th line reads as an index contour */
+      const mix = L / (LEVELS - 1);
+      const r = Math.round(88 + (55 - 88) * mix);
+      const g = Math.round(166 + (208 - 166) * mix);
+      const b = Math.round(255 + (162 - 255) * mix);
+
       ctx.beginPath();
-      ctx.moveTo(p.x - p.len, p.y + Math.sin(t * p.freq * 60 + p.phase + (p.x - p.len) * 0.004) * p.amp);
-      ctx.quadraticCurveTo(p.x - p.len / 2, p.y + yOff * 1.15, p.x, p.y + yOff);
+      for (let j = 0; j < rows; j++) {
+        for (let i = 0; i < cols; i++) {
+          const idx = j * (cols + 1) + i;
+          const a = field[idx];              /* TL */
+          const bb = field[idx + 1];         /* TR */
+          const c = field[idx + cols + 2];   /* BR */
+          const d = field[idx + cols + 1];   /* BL */
+
+          let mask = 0;
+          if (a > threshold) mask |= 8;
+          if (bb > threshold) mask |= 4;
+          if (c > threshold) mask |= 2;
+          if (d > threshold) mask |= 1;
+          const segs = CASES[mask];
+          if (!segs.length) continue;
+
+          const x0 = i * CELL, y0 = j * CELL;
+          const pt = (edge) => {
+            switch (edge) {
+              case 0: return [x0 + CELL * ((threshold - a) / (bb - a)), y0];
+              case 1: return [x0 + CELL, y0 + CELL * ((threshold - bb) / (c - bb))];
+              case 2: return [x0 + CELL * ((threshold - d) / (c - d)), y0 + CELL];
+              default: return [x0, y0 + CELL * ((threshold - a) / (d - a))];
+            }
+          };
+          for (const [e1, e2] of segs) {
+            const p1 = pt(e1), p2 = pt(e2);
+            ctx.moveTo(p1[0], p1[1]);
+            ctx.lineTo(p2[0], p2[1]);
+          }
+        }
+      }
+      ctx.strokeStyle = `rgba(${r},${g},${b},${index ? 0.38 : 0.18})`;
+      ctx.lineWidth = index ? 1.5 : 1;
       ctx.stroke();
     }
-    raf = requestAnimationFrame(frame);
+
+    /* fade the map back where the headline sits so type stays crisp */
+    ctx.globalCompositeOperation = 'destination-out';
+    const fade = ctx.createLinearGradient(0, 0, w * 0.8, 0);
+    fade.addColorStop(0, 'rgba(0,0,0,0.94)');
+    fade.addColorStop(0.55, 'rgba(0,0,0,0.38)');
+    fade.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = fade;
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'source-over';
   }
 
-  const io = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      if (!raf) raf = requestAnimationFrame(frame);
-    } else {
-      cancelAnimationFrame(raf);
-      raf = null;
-    }
-  });
-  io.observe(canvas);
+  /* redraw at ~24fps: the drift is slow, so a full 60fps rebuild is waste */
+  const FRAME = 1000 / 24;
+  let last = 0;
+  let clock = 0;
 
+  function loop(now) {
+    raf = requestAnimationFrame(loop);
+    if (now - last < FRAME) return;
+    clock += (now - last) / 1000;
+    last = now;
+    draw(clock * 0.08);
+  }
+
+  function start() {
+    if (raf || prefersReducedMotion) return;
+    last = performance.now();
+    raf = requestAnimationFrame(loop);
+  }
+  function stop() {
+    if (!raf) return;
+    cancelAnimationFrame(raf);
+    raf = null;
+  }
+
+  resize();
+  draw(0); /* first paint is static, so reduced-motion users still get the map */
+
+  if (!prefersReducedMotion) {
+    new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop())).observe(canvas);
+  }
+
+  let resizeTimer;
   addEventListener('resize', () => {
-    init();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      resize();
+      draw(clock * 0.08);
+    }, 150);
   });
-  init();
 })();
