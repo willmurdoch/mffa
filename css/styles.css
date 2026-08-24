@@ -1,4 +1,57 @@
 /* =====================================================
+   Self-hosted webfonts (no third-party request)
+   ===================================================== */
+@font-face {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../vendor/fonts/sora-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../vendor/fonts/sora-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../vendor/fonts/sora-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../vendor/fonts/sora-latin-800-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../vendor/fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../vendor/fonts/inter-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../vendor/fonts/inter-latin-600-normal.woff2") format("woff2");
+}
+
+/* =====================================================
    Moving Forward for Ataxia — styles
    ===================================================== */
 
@@ -499,4 +552,93 @@ p a { text-decoration: underline; text-underline-offset: 3px; }
 }
 @media (max-width: 640px) {
   .footer__links { grid-template-rows: repeat(6, auto); }
+}
+
+/* =====================================================
+   RIDERS — scrolling photo wall
+   ===================================================== */
+.riders { background: linear-gradient(180deg, var(--ink), var(--ink-2)); overflow: hidden; }
+.riders .section__head { margin-bottom: clamp(32px, 4vw, 52px); }
+
+.marquee__row {
+  overflow: hidden;
+  margin: 0 calc(-1 * clamp(20px, 6vw, 80px)) 18px; /* bleed to the viewport edges */
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee { display: flex; gap: 16px; width: max-content; animation: marquee 62s linear infinite; will-change: transform; }
+.marquee--rev { animation-duration: 74s; animation-direction: reverse; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee__row:hover .marquee,
+.marquee__row:focus-within .marquee { animation-play-state: paused; }
+
+.rider {
+  flex: 0 0 auto; height: clamp(180px, 22vw, 250px);
+  padding: 0; border: 1px solid var(--line); border-radius: 14px;
+  background: var(--card); overflow: hidden; cursor: zoom-in;
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3), border-color 0.35s, box-shadow 0.35s;
+}
+.rider img { height: 100%; width: auto; display: block; object-fit: cover; }
+.rider:hover, .rider:focus-visible {
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--mint);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.riders__hint {
+  text-align: center; color: var(--muted); font-size: 13px;
+  letter-spacing: 1.5px; text-transform: uppercase; margin-top: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .marquee__row { mask-image: none; -webkit-mask-image: none; }
+}
+
+/* ---------- story photo ---------- */
+.story__photo { margin-top: 20px; max-width: 320px; }
+.story__photo img {
+  width: 100%; height: auto; border-radius: 12px;
+  border: 1px solid var(--line); display: block;
+}
+.story__photo figcaption { color: var(--muted); font-size: 13.5px; margin-top: 10px; font-style: italic; }
+
+/* ---------- footer badge logo ---------- */
+.footer__logo { width: 76px; height: 76px; flex: 0 0 auto; }
+
+/* =====================================================
+   LIGHTBOX
+   ===================================================== */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(4, 7, 16, 0.94); backdrop-filter: blur(10px);
+  opacity: 0; transition: opacity 0.3s;
+}
+.lightbox[hidden] { display: none; }
+.lightbox.is-open { opacity: 1; }
+.lightbox__figure { max-width: min(1000px, 92vw); max-height: 84vh; text-align: center; }
+.lightbox__figure img {
+  max-width: 100%; max-height: 74vh; width: auto; height: auto;
+  border-radius: 14px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); margin: 0 auto;
+}
+.lightbox__figure figcaption { color: var(--muted); font-size: 14.5px; margin-top: 16px; max-width: 60ch; margin-inline: auto; }
+.lightbox__close {
+  position: absolute; top: 18px; right: 22px;
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06); color: var(--text);
+  font-size: 26px; line-height: 1; cursor: pointer; transition: background 0.25s, border-color 0.25s;
+}
+.lightbox__nav {
+  width: 52px; height: 52px; flex: 0 0 auto; border-radius: 50%;
+  border: 1px solid var(--line); background: rgba(255, 255, 255, 0.06);
+  color: var(--text); font-size: 30px; line-height: 1; cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+}
+.lightbox__close:hover, .lightbox__nav:hover { background: rgba(55, 208, 162, 0.16); border-color: var(--mint); }
+@media (max-width: 640px) {
+  .lightbox__nav { position: absolute; bottom: 22px; }
+  .lightbox__nav--prev { left: 24px; }
+  .lightbox__nav--next { right: 24px; }
 }

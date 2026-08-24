@@ -386,3 +386,97 @@ if (gsapOK) {
     }, 150);
   });
 })();
+
+/* ---------------- Riders: seamless marquee + lightbox ---------------- */
+(function riders() {
+  const rows = document.querySelectorAll('.marquee');
+  if (!rows.length) return;
+
+  /* duplicate each row's cards so the -50% keyframe loops seamlessly */
+  rows.forEach((row) => {
+    const clones = [...row.children].map((el) => {
+      const c = el.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.tabIndex = -1;
+      return c;
+    });
+    clones.forEach((c) => row.appendChild(c));
+  });
+
+  /* ---- lightbox ---- */
+  const box = document.getElementById('lightbox');
+  const img = document.getElementById('lbImg');
+  const cap = document.getElementById('lbCap');
+  const btnClose = document.getElementById('lbClose');
+  const btnPrev = document.getElementById('lbPrev');
+  const btnNext = document.getElementById('lbNext');
+  if (!box) return;
+
+  /* originals only — the aria-hidden clones would double every photo */
+  const shots = [...document.querySelectorAll('.rider:not([aria-hidden])')].map((b) => ({
+    full: b.dataset.full,
+    alt: b.dataset.alt,
+    el: b,
+  }));
+  let current = 0;
+  let lastFocus = null;
+
+  function show(i) {
+    current = (i + shots.length) % shots.length;
+    const s = shots[current];
+    img.src = s.full;
+    img.alt = s.alt;
+    cap.textContent = `${s.alt}  ·  ${current + 1} of ${shots.length}`;
+  }
+
+  function open(i) {
+    lastFocus = document.activeElement;
+    show(i);
+    box.hidden = false;
+    requestAnimationFrame(() => box.classList.add('is-open'));
+    document.body.style.overflow = 'hidden';
+    btnClose.focus();
+  }
+
+  function close() {
+    box.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      box.hidden = true;
+      img.src = '';
+    }, 300);
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.rider').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      /* a clone was clicked — match it back to its original by image source */
+      const idx = shots.findIndex((s) => s.full === btn.dataset.full);
+      open(idx < 0 ? 0 : idx);
+    });
+  });
+
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', () => show(current - 1));
+  btnNext.addEventListener('click', () => show(current + 1));
+  box.addEventListener('click', (e) => {
+    if (e.target === box || e.target.classList.contains('lightbox__figure')) close();
+  });
+
+  addEventListener('keydown', (e) => {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
+    else if (e.key === 'Tab') {
+      /* keep focus inside the dialog */
+      const focusables = [btnClose, btnPrev, btnNext];
+      const i = focusables.indexOf(document.activeElement);
+      if (i !== -1) {
+        e.preventDefault();
+        const next = e.shiftKey ? i - 1 : i + 1;
+        focusables[(next + focusables.length) % focusables.length].focus();
+      }
+    }
+  });
+})();

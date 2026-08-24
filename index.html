@@ -8,12 +8,16 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Moving Forward for Ataxia" />
   <meta property="og:description" content="Ataxia takes balance. We give back motion. Help put a recumbent trike into the hands of someone living with ataxia." />
-  <meta property="og:image" content="assets/og.png" />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Two riders side by side on recumbent trikes at a park, beside the Moving Forward for Ataxia logo and the words: Ataxia takes balance. We give back motion." />
+  <meta property="og:site_name" content="Moving Forward for Ataxia" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#070b18" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" href="vendor/fonts/sora-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="vendor/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -43,8 +47,8 @@
       <a href="#story">Our Story</a>
       <a href="#ataxia">What Is Ataxia</a>
       <a href="#trikes">Why Trikes</a>
+      <a href="#riders">The Riders</a>
       <a href="#map">Impact Map</a>
-      <a href="#get-a-trike">Get a Trike</a>
     </nav>
     <div class="nav__actions">
       <a class="btn btn--donate nav__donate" href="https://www.paypal.com/ncp/payment/7JQHV38D94YJ6" target="_blank" rel="noopener">Donate<span class="btn--donate__heart" aria-hidden="true">♥</span></a>
@@ -129,6 +133,10 @@
         <div class="story__card">
           <h3>Moving Forward for Ataxia is born</h3>
           <p>Jack and his mom <strong>Monica</strong> turn their rides into a mission: every mile ridden raises money to buy trikes for other people with ataxia. Their most ambitious campaign takes them <strong>1,500 miles from Maine to Ohio</strong> — 41 days in the saddle, over 55,000 feet of climbing.</p>
+          <figure class="story__photo">
+            <img src="assets/hero-jack-monica.jpg" width="236" height="200" alt="Monica and Jack riding recumbent trikes side by side on a trail, reaching across to touch hands" loading="lazy" decoding="async" />
+            <figcaption>Monica and Jack on the road together — mile after mile.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -287,6 +295,67 @@
     </aside>
   </section>
 
+
+  <!-- ======================= RIDERS ======================= -->
+  <section class="section riders" id="riders">
+    <div class="section__head">
+      <p class="section__eyebrow reveal">The riders</p>
+      <h2 class="section__title reveal">Seventeen trikes.<br /><span class="grad">Seventeen lives back in motion.</span></h2>
+      <p class="section__lede reveal">These are the people on the other end of a donation — at the bike shop the day it was fitted, in the driveway the day it arrived, out on the road where it belongs. Every one of these trikes was paid for by someone who gave.</p>
+    </div>
+    <div class="marquee__row">
+      <div class="marquee" id="riderRowA">
+        <button class="rider" type="button" data-full="assets/slideshow01-1dd3c9f9.jpg" data-alt="A rider on his red recumbent trike outside a bicycle shop">
+          <img src="assets/thumbs/slideshow01-1dd3c9f9.jpg" width="437" height="480" alt="A rider on his red recumbent trike outside a bicycle shop" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-367540ce.jpg" data-alt="Two riders stopped side by side on a wooded trail">
+          <img src="assets/thumbs/slideshow01-367540ce.jpg" width="278" height="230" alt="Two riders stopped side by side on a wooded trail" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-6f0d60cd.jpg" data-alt="A rider trying out her new trike inside a bike shop">
+          <img src="assets/thumbs/slideshow01-6f0d60cd.jpg" width="333" height="324" alt="A rider trying out her new trike inside a bike shop" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-af90080a.jpg" data-alt="A family with their new recumbent trikes at the bike shop">
+          <img src="assets/thumbs/slideshow01-af90080a.jpg" width="375" height="480" alt="A family with their new recumbent trikes at the bike shop" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-3f07d054.jpg" data-alt="Two riders taking a selfie while riding on a sunny road">
+          <img src="assets/thumbs/slideshow01-3f07d054.jpg" width="414" height="331" alt="Two riders taking a selfie while riding on a sunny road" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-9d462700.jpg" data-alt="A rider seated on her yellow recumbent trike in a bike shop">
+          <img src="assets/thumbs/slideshow01-9d462700.jpg" width="323" height="409" alt="A rider seated on her yellow recumbent trike in a bike shop" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-c58c562b.jpg" data-alt="A rider in a red hat on her trike along a boardwalk">
+          <img src="assets/thumbs/slideshow01-c58c562b.jpg" width="233" height="200" alt="A rider in a red hat on her trike along a boardwalk" loading="lazy" decoding="async" />
+        </button>
+      </div>
+    </div>
+    <div class="marquee__row">
+      <div class="marquee marquee--rev" id="riderRowB">
+        <button class="rider" type="button" data-full="assets/slideshow01-b03f12f4.jpg" data-alt="A rider on a blue recumbent trike on a grassy lawn">
+          <img src="assets/thumbs/slideshow01-b03f12f4.jpg" width="398" height="480" alt="A rider on a blue recumbent trike on a grassy lawn" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-30c710e6.jpg" data-alt="A new trike owner surrounded by family and bike shop staff">
+          <img src="assets/thumbs/slideshow01-30c710e6.jpg" width="312" height="435" alt="A new trike owner surrounded by family and bike shop staff" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-a985f3d9.jpg" data-alt="Two riders taking a selfie together mid-ride">
+          <img src="assets/thumbs/slideshow01-a985f3d9.jpg" width="414" height="352" alt="Two riders taking a selfie together mid-ride" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-e0a9e6ae.jpg" data-alt="A rider on his new trike with a supporter beside him">
+          <img src="assets/thumbs/slideshow01-e0a9e6ae.jpg" width="319" height="480" alt="A rider on his new trike with a supporter beside him" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-681234b1.jpg" data-alt="Volunteers loading a newly donated trike into a car">
+          <img src="assets/thumbs/slideshow01-681234b1.jpg" width="412" height="269" alt="Volunteers loading a newly donated trike into a car" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-3838256d.jpg" data-alt="A rider smiling beside the box his new trike arrived in">
+          <img src="assets/thumbs/slideshow01-3838256d.jpg" width="431" height="442" alt="A rider smiling beside the box his new trike arrived in" loading="lazy" decoding="async" />
+        </button>
+        <button class="rider" type="button" data-full="assets/slideshow01-00f55cb4.jpg" data-alt="Two riders side by side on trikes at a park pavilion">
+          <img src="assets/thumbs/slideshow01-00f55cb4.jpg" width="684" height="480" alt="Two riders side by side on trikes at a park pavilion" loading="lazy" decoding="async" />
+        </button>
+      </div>
+    </div>
+    <p class="riders__hint">Tap any photo to see it full size</p>
+  </section>
+
   <!-- ======================= IMPACT MAP / GLOBE ======================= -->
   <section class="section mapsec" id="map">
     <div class="section__head">
@@ -406,21 +475,14 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="footer__brand">
-        <svg class="nav__mark" viewBox="0 0 48 48" aria-hidden="true">
-          <g fill="none" stroke="#37d0a2" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="13" cy="33" r="9"/>
-            <circle cx="39" cy="36" r="6"/>
-            <path d="M13 33 L27 30 L39 36"/>
-            <path d="M27 30 L19 18"/>
-          </g>
-          <path d="M19 18 L28 21" stroke="#ffc24b" stroke-width="3.6" stroke-linecap="round"/>
-        </svg>
+        <img class="footer__logo" src="assets/logo.png" width="420" height="420" alt="Moving Forward for Ataxia official logo" loading="lazy" decoding="async" />
         <p><strong>Moving Forward for Ataxia</strong><br />Started by a mother and son on three wheels.<br />Downingtown, Pennsylvania</p>
       </div>
       <nav class="footer__links" aria-label="Footer">
         <a href="#story">Our Story</a>
         <a href="#ataxia">What Is Ataxia</a>
         <a href="#trikes">Why Trikes</a>
+        <a href="#riders">The Riders</a>
         <a href="#map">Impact Map</a>
         <a href="#donate">Donate</a>
         <a href="https://www.facebook.com/movingforwardforataxia/" target="_blank" rel="noopener">Facebook</a>
@@ -436,6 +498,18 @@
   <a class="donate-pill" id="donatePill" href="https://www.paypal.com/ncp/payment/7JQHV38D94YJ6" target="_blank" rel="noopener" aria-label="Donate to Moving Forward for Ataxia">
     <span class="donate-pill__pulse" aria-hidden="true"></span>♥ Donate
   </a>
+
+
+  <!-- ======================= LIGHTBOX ======================= -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" id="lbClose" type="button" aria-label="Close photo">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" type="button" aria-label="Previous photo">&#8249;</button>
+    <figure class="lightbox__figure">
+      <img id="lbImg" src="" alt="" />
+      <figcaption id="lbCap"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lbNext" type="button" aria-label="Next photo">&#8250;</button>
+  </div>
 
   <script src="vendor/gsap.min.js"></script>
   <script src="vendor/ScrollTrigger.min.js"></script>
